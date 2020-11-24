@@ -11,7 +11,7 @@ public class WebServerThread extends Thread {
 		this.socket = socket;
 	}
 
-	public void run_() {
+	public void run() {
 
 		try (OutputStream out = socket.getOutputStream();
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));) {
@@ -26,33 +26,4 @@ public class WebServerThread extends Thread {
 		}
 	}
 
-	public void run() {
-
-		try (OutputStream out = socket.getOutputStream();
-				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));) {
-
-			HttpProtocol.process3(in, out);
-
-			socket.close();
-		}
-
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void run2() {
-
-		try (PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));) {
-
-			HttpProtocol.process(in, socket.getOutputStream(), out);
-
-			socket.close();
-		}
-
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }
